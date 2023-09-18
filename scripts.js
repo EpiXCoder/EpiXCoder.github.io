@@ -57,7 +57,11 @@ for (let i = 0; i < data.length; i += 1) {
     // putting the newly created div inside the items container
 	itemsContainer.appendChild(newDiv)
 }
-
+const all_items_button = Array.from(document.querySelectorAll("button"))
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
 //------------------------------------------------
 const cart = [ ]
 const obj = {}
@@ -109,16 +113,10 @@ function addItem(name, price) {
 // Show Items
 function showItems() {
     const qty = getQty()
-    // console.log(`you have ${getQty()} items in your cart`)
     cartQty.innerHTML = `You have ${qty} items in your cart.`
     
     let itemStr = ''
     for (let i = 0; i <cart.length; i +=1) {
-        // console.log(`- ${cart[i].name} ${cart[i].price} x ${cart[i].qty}`)
-        // const name = cart[i].name
-        // const price = cart[i].price
-        // const qty = cart[i].qty
-
         const{name, price, qty} = cart[i]
 
         itemStr += `<li>
@@ -134,12 +132,6 @@ function showItems() {
         </li>`
     }
     
-    const all_items_button = Array.from(document.querySelectorAll("button"))
-    all_items_button.forEach(elt => elt.addEventListener('click', () => {
-        addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
-        showItems()
-      }))
-
     itemList.innerHTML = itemStr
 
     // console.log(`Total in cart: $${getTotal()}`)
